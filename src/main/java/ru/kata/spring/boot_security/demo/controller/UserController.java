@@ -7,18 +7,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import java.security.Principal;
 
 @Controller
 public class UserController {
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     private final RoleRepository roleRepository;
 
     @Autowired
-    public UserController(UserService userService, RoleRepository roleRepository) {
+    public UserController(UserServiceImpl userService, RoleRepository roleRepository) {
         this.userService = userService;
         this.roleRepository = roleRepository;
     }
