@@ -1,0 +1,7 @@
+#Запросы для добавления в БД
+insert into users (age, last_name, password, user_name) VALUES (25, 'Ivanov', (admin)'$2a$12$ie5RNtTQDjBjLmKjSUZxFuoOTdwl9zS1a4pXdocbaiTU0WcvAMAmC', 'Ivan');
+insert into roles (name) VALUE ('ROLE_ADMIN');
+insert into roles (name) VALUE ('ROLE_USER');
+insert into user_roles (user_id, role_id) VALUES (1, 1);
+insert into users (age, last_name, password, user_name) VALUES (13, 'Smirnov', (user)'$2a$12$lg5ppisKe/LZNz5PSxG5AO3UedVUubmeac5LO0w.aJyhinkqhvuqm', 'Anton');
+insert into user_roles (user_id, role_id) VALUES (2, 2);
