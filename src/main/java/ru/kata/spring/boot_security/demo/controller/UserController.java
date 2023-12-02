@@ -24,13 +24,20 @@ public class UserController {
     }
 
     @GetMapping("/index")
-    public String indexPage(Model model) {
+    public String indexPage() {
         return "/index";
     }
 
+    @GetMapping("/login")
+    public String loginPage() {
+        return "redirect:/login";
+    }
+
     @GetMapping("/admin")
-    public String adminPage(Model model) {
+    public String adminPage(@ModelAttribute("user") User user, Model model, Principal principal) {
+        model.addAttribute("roles", userService.getAllRoles());
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("usingUser", userService.findByName(principal.getName()));
         return "/allUsers";
     }
 
@@ -44,14 +51,14 @@ public class UserController {
     public String editUserPage(@RequestParam("id") Long id, Model model) {
         model.addAttribute("user", userService.findUserById(id));
         model.addAttribute("allRoles", roleRepository.findAll());
-        return "/edit";
+        return "redirect:/admin/edit";
     }
 
-    @PostMapping("/admin/edit")
-    public String saveEdit(@RequestParam("id") Long id,
+    @PatchMapping("/admin/update/{id}")
+    public String saveEdit(@PathVariable("id") Long id,
                            @ModelAttribute("user") User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/edit";
+            return "redirect:/update/{id}";
         }
         userService.updateUser(user, id);
         return "redirect:/admin";
@@ -61,21 +68,21 @@ public class UserController {
     public String createUserPage(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("allRoles", roleRepository.findAll());
-        return "/create";
+        return "redirect:/create";
     }
 
     @PostMapping("/admin/create")
     public String saveUser(@ModelAttribute("user") User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/create";
+            return "redirect:/admin/create";
         }
         userService.saveUser(user);
         return "redirect:/admin";
     }
 
 
-    @PostMapping("/admin/delete")
-    public String deleteUser(@RequestParam("id") Long id) {
+    @PostMapping("/admin/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/admin";
     }
