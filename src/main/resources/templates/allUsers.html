@@ -19,7 +19,8 @@
     <div class="container-fluid">
         <form class="text-white">
             <strong th:text="${usingUser.get().username}"></strong>
-            <span th:text="|with roles: ${usingUser.get().roles}|"/>
+            <span> with roles </span>
+            <span th:each="userRole : ${usingUser.get().roles}" th:text="${userRole.toString().replace('ROLE_', '') + ' '}"/>
         </form>
         <input type=button class="btn btn-dark; text-secondary" value="Logout"
                onclick="window.location.href = '/logout'">
@@ -93,7 +94,10 @@
                                             <td th:text="${user.getUsername()}"/>
                                             <td th:text="${user.getLastName()}"/>
                                             <td th:text="${user.getAge()}"/>
-                                            <td th:text="${user.getRoles()}"/>
+                                            <td>
+                                                <span th:each="userRole: ${user.getRoles()}"
+                                                      th:text="${userRole.toString().replace('ROLE_', '') + ' '}"/>
+                                            </td>
                                             <td>
                                                 <a type="button" class="btn btn-info" data-bs-toggle="modal"
                                                    th:data-bs-target="${'#editModal'+user.getId()}">Edit</a>
@@ -147,11 +151,11 @@
                                                                     <label><b>Role</b></label>
                                                                     <label>
                                                                         <select class="form-control form-control-sm" name="roles" multiple
-                                                                                th:value="*{roles}" style="height: 50px; width: 300px; margin: 0 auto">
+                                                                                th:value="${roles}" style="height: 50px; width: 300px; margin: 0 auto">
                                                                                 <option th:each="role : ${roles}"
                                                                                     th:selected="${role.getAuthority()}"
                                                                                     th:value="${role.getId()}"
-                                                                                    th:text="${role.getAuthority()}">
+                                                                                    th:text="${role.getAuthority().replace('ROLE_', '')}">
                                                                                 <span th:case="'ROLE_ADMIN'">ADMIN</span>
                                                                                 <span th:case="'ROLE_USER'">USER</span>
                                                                             </option>
@@ -213,7 +217,7 @@
                                                                         aria-label="size 2 select example disabled" disabled>
                                                                     <option th:each="role : ${roles}"
                                                                             th:value="${role.getId()}"
-                                                                            th:text="${role.getAuthority()}"
+                                                                            th:text="${role.getAuthority().replace('ROLE_', '')}"
                                                                             th:selected="${role.getAuthority()}">
                                                                         <span th:case="'ROLE_ADMIN'">ADMIN</span>
                                                                         <span th:case="'ROLE_USER'">USER</span>
@@ -275,7 +279,7 @@
                                                         style="height: 50px; width: 300px; margin: 0 auto">
                                                     <option th:each="role : ${roles}"
                                                             th:value="${role.getId()}"
-                                                            th:text="${role.getAuthority()}"
+                                                            th:text="${role.getAuthority().replace('ROLE_', '')}"
                                                             th:selected="${role.getAuthority()}">
                                                 </select>
                                             </label>

@@ -17,8 +17,9 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <form class="text-white">
-            <strong th:text="${user.get().username}">Email: </strong>
-            <span th:text="|with roles: ${user.get().roles}|"/>
+            <strong th:text="${user.get().username}"></strong>
+            <span> with roles:</span>
+            <span th:each="userRole : ${user.get().roles}" th:text="${userRole.toString().replace('ROLE_', '') + ' '}"/>
         </form>
         <input type=button class="btn btn-dark; text-secondary" value="Logout"
                onclick="window.location.href = '/logout'">
@@ -73,7 +74,7 @@
                                     <td th:text="${user.get().age}"/>
                                     <td>
                                         <th:block th:each="userRole : ${user.get().roles}">
-                                            <span th:text="${userRole.toString()}"></span>
+                                            <span th:text="${userRole.toString().replace('ROLE_', '') + ' '}"></span>
                                         </th:block>
                                     </td>
                                 </tr>

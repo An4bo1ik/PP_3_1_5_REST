@@ -1,9 +1,20 @@
-package ru.kata.spring.boot_security.demo.entities;
+package ru.kata.spring.boot_security.demo.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,12 +40,26 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    public Long getId() {
-        return id;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
+
+    public User() {
+
     }
 
-    public void setId(Long id) {
+    public User(Long id, String username, String lastName, String password, List<Role> roles) {
         this.id = id;
+        this.username = username;
+        this.lastName = lastName;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -81,24 +106,6 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles = new ArrayList<>();
-
-    public User() {
-
-    }
-
-    public User(Long id, String username, String lastName, String password, List<Role> roles) {
-        this.id = id;
-        this.username = username;
-        this.lastName = lastName;
-        this.password = password;
-        this.roles = roles;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
@@ -128,7 +135,7 @@ public class User implements UserDetails {
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", password='" + password + '\'' +
-                ", roles='" + roles + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }

@@ -1,10 +1,13 @@
-package ru.kata.spring.boot_security.demo.entities;
+package ru.kata.spring.boot_security.demo.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
@@ -17,11 +20,6 @@ public class Role implements GrantedAuthority {
     @Column(name = "name", unique = true)
     private String name;
 
-    @Override
-    public String getAuthority() {
-        return getName();
-    }
-
     public Role() {
     }
 
@@ -33,15 +31,13 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    /*@ManyToMany(mappedBy = "roles")
-    private List<User> users = new ArrayList<>();*/
+    @Override
+    public String getAuthority() {
+        return getName();
+    }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -51,14 +47,6 @@ public class Role implements GrantedAuthority {
     public void setName(String name) {
         this.name = name;
     }
-
-   /* public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }*/
 
     @Override
     public String toString() {
@@ -70,7 +58,7 @@ public class Role implements GrantedAuthority {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return id == role.id && Objects.equals(name, role.name); //&& Objects.equals(users, role.users);
+        return id == role.id && Objects.equals(name, role.name);
     }
 
     @Override
