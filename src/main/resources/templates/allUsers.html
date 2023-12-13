@@ -19,7 +19,7 @@
     <div class="container-fluid">
         <form class="text-white">
             <strong th:text="${usingUser.get().username}"></strong>
-            <span> with roles </span>
+            <span> with roles: </span>
             <span th:each="userRole : ${usingUser.get().roles}" th:text="${userRole.toString().replace('ROLE_', '') + ' '}"/>
         </form>
         <input type=button class="btn btn-dark; text-secondary" value="Logout"
@@ -88,24 +88,9 @@
                                             <th>Delete</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr th:each="user : ${users}">
-                                            <td th:text="${user.getId()}"/>
-                                            <td th:text="${user.getUsername()}"/>
-                                            <td th:text="${user.getLastName()}"/>
-                                            <td th:text="${user.getAge()}"/>
-                                            <td>
-                                                <span th:each="userRole: ${user.getRoles()}"
-                                                      th:text="${userRole.toString().replace('ROLE_', '') + ' '}"/>
-                                            </td>
-                                            <td>
-                                                <a type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                   th:data-bs-target="${'#editModal'+user.getId()}">Edit</a>
-                                            </td>
-                                            <td>
-                                                <a type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                   th:data-bs-target="${'#deleteModal'+user.getId()}">Delete</a>
-                                            </td>
+                                        <tbody id="tableBody">
+                                        <tr>
+
 
                                             <!-- Modal -->
                                             <!-- Edit -->
@@ -301,5 +286,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+<script src="/admin.js"></script>
+<script src="/edit.js"></script>
 </body>
 </html>
