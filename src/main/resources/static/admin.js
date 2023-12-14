@@ -1,4 +1,4 @@
-const url = 'http://localhost:8080/api/admin/users';
+const url = 'http://localhost:8080/api/admin';
 
 function getAllUsers() {
     fetch(url)
@@ -23,7 +23,7 @@ function usersTable(listAllUsers) {
                 <td>${userRole}</td>
                <td>
                     <button id="button-edit" class="btn btn-info" type="button"
-                    data-bs-toggle="modal" href="#editModal"
+                    data-bs-toggle="modal" data-bs-target="#editModal"
                     onclick="editModal(${user.id})">Edit</button></td>
                 <td>
                     <button class="btn btn-danger" type="button"
