@@ -21,7 +21,7 @@ function usersTable(listAllUsers) {
                 <td>${user.lastName}</td>
                 <td>${user.age}</td>
                 <td>${userRole}</td>
-               <td>
+                <td>
                     <button id="button-edit" class="btn btn-info" type="button"
                     data-bs-toggle="modal" data-bs-target="#editModal"
                     onclick="editModal(${user.id})">Edit</button></td>
@@ -33,7 +33,6 @@ function usersTable(listAllUsers) {
     }
 
     document.getElementById('tableBody').innerHTML = res;
-
 }
 
 function closeModal() {
@@ -48,4 +47,6 @@ function rolesToString(roles) {
     return rolesString;
 }
 
-getAllUsers()
+getAllUsers();
+
+

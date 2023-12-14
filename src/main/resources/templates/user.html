@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,10 +16,10 @@
 <!--NAV BAR-->
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <form class="text-white">
-            <strong th:text="${user.get().username}"></strong>
-            <span> with roles:</span>
-            <span th:each="userRole : ${user.get().roles}" th:text="${userRole.toString().replace('ROLE_', '') + ' '}"/>
+        <form class="navbar-brand">
+            <strong id="navbar-username" th:font="bold"></strong>
+            with roles:
+            <span id="navbar-roles"></span>
         </form>
         <input type=button class="btn btn-dark; text-secondary" value="Logout"
                onclick="window.location.href = '/logout'">
@@ -33,10 +33,6 @@
         <!-- Vertical -->
         <div class="col">
             <div class="row">
-                <button th:each="role: ${user.get().roles}" th:if="${role.toString()}=='ROLE_ADMIN'"
-                        class="btn btn-link btn-lg btn-block; text-start" onclick="window.location.href = '/admin'" >
-                    Admin
-                </button>
                 <button class="btn btn-primary btn-lg btn-block; text-start" onclick="window.location.href = '/user'">
                     User
                 </button>
@@ -81,5 +77,6 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 <script src="/user.js"></script>
+<script src="/admin.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,10 +17,10 @@
 <!-- navbar -->
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <form class="text-white">
-            <strong th:text="${usingUser.get().username}"></strong>
-            <span> with roles: </span>
-            <span th:each="userRole : ${usingUser.get().roles}" th:text="${userRole.toString().replace('ROLE_', '') + ' '}"/>
+        <form class="navbar-brand">
+            <strong id="navbar-username" th:font="bold"></strong>
+            with roles:
+            <span id="navbar-roles"></span>
         </form>
         <input type=button class="btn btn-dark; text-secondary" value="Logout"
                onclick="window.location.href = '/logout'">
@@ -305,5 +305,6 @@
 <script src="/create.js"></script>
 <script src="/delete.js"></script>
 <script src="/edit.js"></script>
+<script src="/user.js"></script>
 </body>
 </html>

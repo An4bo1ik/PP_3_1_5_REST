@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
-
 import java.util.Collection;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/admin")
